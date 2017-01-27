@@ -1,9 +1,10 @@
 package com.openpolicy.entity;
 
+import org.hibernate.Transaction;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "Article")
@@ -14,12 +15,9 @@ public class Article {
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name = "title", nullable = false, length = 50)
-    private String title;
-
-    @Column(name = "article_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date creationStamp;
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
     public Article() {
     }
@@ -32,19 +30,11 @@ public class Article {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public Category getCategory() {
+        return category;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public Date getCreationStamp() {
-        return creationStamp;
-    }
-
-    public void setCreationStamp(Date creationStamp) {
-        this.creationStamp = creationStamp;
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

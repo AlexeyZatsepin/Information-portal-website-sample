@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-public class MainController {
+public class WebController {
 
     @Autowired
-    private ArticleService service;
+    private ArticleService articleService;
 
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String index(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
@@ -21,8 +21,9 @@ public class MainController {
     }
 
     @RequestMapping(value = "/article", method = RequestMethod.GET)
-    public String repo(Model model){
-        model.addAttribute("name",service.getByID(0).getTitle());
+    public String article(Model model){
+        model.addAttribute("name", articleService.getByID(0));
         return "index";
     }
+
 }
