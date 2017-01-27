@@ -11,29 +11,29 @@ import java.util.List;
 public class RestController {
 
     @Autowired
-    private ArticleService service;
+    private ArticleService articleService;
 
     @RequestMapping(value = "/articles/", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> getAll() {
-        return service.getAll();
+        return articleService.getAll();
     }
 
     @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
     @ResponseBody
     public Article get(@PathVariable("id") long remindID) {
-        return service.getByID(remindID);
+        return articleService.getByID(remindID);
     }
 
     @RequestMapping(value = "/article/add", method = RequestMethod.POST)
     @ResponseBody
-    public Article save(@RequestBody Article remind) {
-        return service.save(remind);
+    public Article save(@RequestBody Article article) {
+        return articleService.save(article);
     }
 
     @RequestMapping(value = "/article/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable long id) {
-        service.remove(id);
+        articleService.remove(id);
     }
 }

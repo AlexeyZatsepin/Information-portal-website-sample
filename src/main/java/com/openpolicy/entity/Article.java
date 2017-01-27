@@ -1,6 +1,5 @@
 package com.openpolicy.entity;
 
-import org.hibernate.Transaction;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,6 +18,9 @@ public class Article {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
+    @OneToMany(mappedBy = "article")
+    private Set<Translation> translations;
+
     public Article() {
     }
 
@@ -36,5 +38,22 @@ public class Article {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Set<Translation> getTranslations() {
+        return translations;
+    }
+
+    public void setTranslations(Set<Translation> translations) {
+        this.translations = translations;
+    }
+
+    @Override
+    public String toString() {
+        return "Article{" +
+                "id=" + id +
+                ", category=" + category +
+                ", translations=" + translations +
+                '}';
     }
 }

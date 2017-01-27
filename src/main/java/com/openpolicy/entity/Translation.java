@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Locale;
 
 @Entity
 @Table(name = "Translations")
@@ -21,7 +22,6 @@ public class Translation {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "locale", nullable = false)
     private Locale locale;
 
@@ -32,10 +32,6 @@ public class Translation {
     @Column(name = "article_date", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationStamp;
-
-    public enum Locale{
-        RU,EN,UA
-    }
 
     public long getId() {
         return id;
@@ -83,5 +79,16 @@ public class Translation {
 
     public void setArticle(Article article) {
         this.article = article;
+    }
+
+    @Override
+    public String toString() {
+        return "Translation{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", locale=" + locale +
+                ", creationStamp=" + creationStamp +
+                '}';
     }
 }
