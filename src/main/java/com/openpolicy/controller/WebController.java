@@ -32,4 +32,19 @@ public class WebController {
         return "index";
     }
 
+    @RequestMapping(value = "/welcome", method = RequestMethod.GET)
+    public String welcome(@RequestParam(value="lang", required=false, defaultValue="en") String lang,Model model){
+        return "welcome";
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String login(@RequestParam(value="lang", required=false, defaultValue="en") String lang,Model model){
+        return "login";
+    }
+
+    @RequestMapping(value = "/403", method = RequestMethod.GET)
+    public String error403(@RequestParam(value="lang", required=false, defaultValue="en") String lang,Model model){
+        return "403";
+    }
+
 }

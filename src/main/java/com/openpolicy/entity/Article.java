@@ -3,6 +3,7 @@ package com.openpolicy.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -21,7 +22,25 @@ public class Article {
     @OneToMany(mappedBy = "article")
     private Set<Translation> translations;
 
+    @Column(name = "creation_time", nullable = false)
+    private Date creationTime;
+
+    @Column(name = "modification_time", nullable = false)
+    private Date modificationTime;
+
     public Article() {
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        modificationTime = new Date();
+    }
+
+    @PrePersist
+    public void prePersist() {
+        Date now = new Date();
+        creationTime = now;
+        modificationTime = now;
     }
 
     public long getId() {
