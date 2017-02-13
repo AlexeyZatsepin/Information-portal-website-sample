@@ -9,29 +9,30 @@ import java.util.List;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
+    public static final String TAG = "api";
 
     @Autowired
     private ArticleService articleService;
 
-    @RequestMapping(value = "/articles/", method = RequestMethod.GET)
+    @RequestMapping(value = TAG+"/articles/", method = RequestMethod.GET)
     @ResponseBody
     public List<Article> getAll() {
         return articleService.getAll();
     }
 
-    @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = TAG+"/article/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public Article get(@PathVariable("id") long remindID) {
-        return articleService.getByID(remindID);
+    public Article get(@PathVariable("id") long id) {
+        return articleService.getByID(id);
     }
 
-    @RequestMapping(value = "/article/add", method = RequestMethod.POST)
+    @RequestMapping(value = TAG+"/article/add", method = RequestMethod.POST)
     @ResponseBody
     public Article save(@RequestBody Article article) {
         return articleService.save(article);
     }
 
-    @RequestMapping(value = "/article/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = TAG+"/article/delete/{id}", method = RequestMethod.DELETE)
     @ResponseBody
     public void delete(@PathVariable long id) {
         articleService.remove(id);

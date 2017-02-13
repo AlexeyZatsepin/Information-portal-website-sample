@@ -1,23 +1,17 @@
 package com.openpolicy.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.*;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "person")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "login")
-    private String username;
+    private String login;
 
     @Transient
     @Column(name = "password")
@@ -38,11 +32,11 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return login;
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.login = username;
     }
 
     public String getPassword() {
