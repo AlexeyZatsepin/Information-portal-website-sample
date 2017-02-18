@@ -21,9 +21,13 @@
 <div class="container">
     <c:import url="header.jsp"/>
     <spring:message code="title" text="welcome"/>
-    <sec:authorize access="hasRole('ADMIN')">
+    <sec:authorize access="hasAuthority('ADMIN')">
         This content will only be visible to users who have
         the "ADMIN" authority in their list of <tt>GrantedAuthority</tt>s.
+    </sec:authorize>
+    <sec:authorize access="hasAuthority('USER')">
+        This content will only be visible to users who have
+        the "USER" authority in their list of <tt>GrantedAuthority</tt>s.
     </sec:authorize>
 </div>
 <!-- /container -->

@@ -1,6 +1,7 @@
 package com.openpolicy.service.impl;
 
 
+import com.openpolicy.entity.User;
 import com.openpolicy.service.SecurityService;
 import com.openpolicy.service.UserService;
 import org.slf4j.Logger;
@@ -24,11 +25,10 @@ public class SecurityServiceImpl implements SecurityService {
 
     @Override
     public String findLoggedInUsername() {
-        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getDetails();
-        if (userDetails instanceof UserDetails) {
-            return ((UserDetails)userDetails).getUsername();
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getDetails();
+        if (userDetails != null) {
+            return userDetails.getUsername();
         }
-
         return null;
     }
 

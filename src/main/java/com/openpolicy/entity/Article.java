@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,9 @@ public class Article {
     private Date modificationTime;
 
     public Article() {
+        translations = new HashSet<>();
+        translations.add(new Translation());
+        translations.add(new Translation());
     }
 
     @PreUpdate
@@ -61,6 +65,10 @@ public class Article {
 
     public Set<Translation> getTranslations() {
         return translations;
+    }
+
+    public void addTranslations(Translation translation){
+        translations.add(translation);
     }
 
     public void setTranslations(Set<Translation> translations) {

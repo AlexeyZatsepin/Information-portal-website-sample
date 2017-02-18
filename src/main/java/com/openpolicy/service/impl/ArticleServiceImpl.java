@@ -8,6 +8,7 @@ import com.openpolicy.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -37,5 +38,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void remove(long id) {
         articleRepository.delete(id);
+    }
+
+    @Override
+    public Translation save(Translation translation) {
+        translation.setCreationStamp(new Date());
+        save(translation.getArticle());
+        return translationRepository.saveAndFlush(translation);
     }
 }
