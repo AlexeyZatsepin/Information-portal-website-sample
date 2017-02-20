@@ -1,34 +1,46 @@
 package com.openpolicy.controller;
 
-import com.openpolicy.repository.ArticleRepository;
-import com.openpolicy.repository.CategoryRepository;
-import com.openpolicy.repository.UserRepository;
+import com.openpolicy.service.ArticleService;
+import com.openpolicy.service.CategoryService;
+import com.openpolicy.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+
+import java.util.Locale;
 
 @Controller
 public class CatalogController {
 
     @Autowired
-    private ArticleRepository articleRepository;
+    private ArticleService articleService;
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
-    @RequestMapping(value ={"/","/catalog"}, method = RequestMethod.GET)
+    @GetMapping(value ={"/","/catalog"})
     public String catalog(Model model) {
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("articles", articleService.getAll());
         return "catalog";
     }
 
-    @RequestMapping(value = "/article/{id}", method = RequestMethod.GET)
-    public String article(@PathVariable("id") long id, Model model) {
+    @GetMapping(value = "/article/{id}")
+    public String article(@PathVariable long id, Model model) {
+        model.addAttribute("article",articleService.getByLang(id, new Locale("en")));
+        return "article";
+    }
+
+    @GetMapping(value = "/category/{id}")
+    public String category(@PathVariable long id, Model model) {
+        model.addAttribute("category", categoryService.getByID(id));
+        model.addAttribute("categories", categoryService.getAll());
+        model.addAttribute("articles", articleService.getByCategory(categoryService.getByID(id)));
         return "catalog";
     }
 

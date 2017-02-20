@@ -29,6 +29,16 @@
         This content will only be visible to users who have
         the "USER" authority in their list of <tt>GrantedAuthority</tt>s.
     </sec:authorize>
+    <p>Categories: </p>
+    <%--@elvariable id="categories" type="java.util.List"--%>
+    <c:forEach var="category" items="${categories}">
+        <p><a href="/category/${category.getId()}"> ${category.getTitle()}</a></p>
+    </c:forEach>
+    <p>Articles: </p>
+    <%--@elvariable id="articles" type="java.util.List"--%>
+    <c:forEach var="article" items="${articles}">
+        <p><a href="/article/${article.getId()}"> ${article.getTitle()}</a></p>
+    </c:forEach>
 </div>
 <!-- /container -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

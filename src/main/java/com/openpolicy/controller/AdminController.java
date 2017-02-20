@@ -54,8 +54,9 @@ public class AdminController {
         return "admin";
     }
 
-    @PostMapping("/add/article")
+    @PostMapping(value = "/add/article")
     public String addArticle(@ModelAttribute("articleForm") Article articleForm, Model model) {
+//        articleForm.setCategory(category);
         articleService.save(articleForm);
         return "redirect:/admin";
     }

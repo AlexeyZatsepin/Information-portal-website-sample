@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -82,5 +83,10 @@ public class Article {
                 ", category=" + category +
                 ", translations=" + translations +
                 '}';
+    }
+
+    public String getTitle(){
+        Optional<Translation> translationOptional = translations.parallelStream().findFirst();
+        return translationOptional.map(Translation::getTitle).orElse("Article title");
     }
 }

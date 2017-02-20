@@ -68,22 +68,20 @@
                     <form:errors path="locale"/>
                 </spring:bind>
                 <spring:bind path="article">
-                    <form:hidden path="article" value="${article}"/>
+                    <form:hidden path="article" value="${article.getId()}"/>
                 </spring:bind>
                 <button type="submit">Submit</button>
             </form:form>
     </c:forEach>
-<form:form method="POST" modelAttribute="articeForm" action="/admin/add/article">
-    <%--<spring:bind path="category">--%>
-        <%--<form:input path="category" placeholder="Category" autofocus="true" items=""/>--%>
-        <%--<form:errors path="category"/>--%>
-    <%--</spring:bind>--%>
-
-    <select name="category">
-        <c:forEach var="category" items="${categories}">
-            <option value="${category}">${category.getTitle()}</option>
-        </c:forEach>
-    </select>
+<p>Add article:</p>
+<form:form method="POST" modelAttribute="articleForm" action="/admin/add/article">
+    <spring:bind path="category">
+        <form:select path="category">
+            <c:forEach var="category" items="${categories}">
+                <form:option value="${category}">${category.getTitle()}</form:option>
+            </c:forEach>
+        </form:select>
+    </spring:bind>
     <button type="submit">Submit</button>
 </form:form>
 

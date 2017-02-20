@@ -1,6 +1,7 @@
 package com.openpolicy.service.impl;
 
 import com.openpolicy.entity.Article;
+import com.openpolicy.entity.Category;
 import com.openpolicy.entity.Translation;
 import com.openpolicy.repository.ArticleRepository;
 import com.openpolicy.repository.TranslationRepository;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class ArticleServiceImpl implements ArticleService {
@@ -45,5 +48,16 @@ public class ArticleServiceImpl implements ArticleService {
         translation.setCreationStamp(new Date());
         save(translation.getArticle());
         return translationRepository.saveAndFlush(translation);
+    }
+
+    @Override
+    public Translation getByLang(long articleId, Locale locale) {
+        Article article = articleRepository.getOne(articleId);
+        return article.getTranslations().parallelStream().filter(a -> a.getLocale().equals(locale)).findAny().get();
+    }
+
+    @Override
+    public List<Article> getByCategory(Category category) {
+        return articleRepository.findAll().parallelStream().filter(article -> article.getCategory().equals(category)).collect(Collectors.toList());
     }
 }
